@@ -1,0 +1,16 @@
+
+name: totp 
+root: ~/Documents/totp/
+
+windows:
+  - editor:
+      root: ~/Documents/totp/
+      layout: 8aef,190x58,0,0[190x44,0,0{95x44,0,0,36,94x44,96,0,38},190x13,0,45,37]
+      panes:
+        - master:
+          - vim totp.js
+        - slave:
+          - vim index.js
+        - terminal:
+          - node index.js
+

@@ -1,0 +1,30 @@
+
+name: emola
+root: ~/Documents/Doing/sources/
+
+windows:
+  - editor:
+      root: ~/Documents/Doing/sources/
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - editor:
+          - vim package.json
+        - terminal:
+          - ll
+  - npm: 
+      root: ~/Documents/Doing/sources/
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - main:
+          - ll
+        - start:
+          - npm start
+  - appcenter: 
+      root: ~/Documents/Doing/sources/
+      layout: c19a,190x58,0,0[190x26,0,0,22,190x31,0,27,25]
+      panes:
+        - ios:
+          - npm run cp:hisprod:ios
+        - android:
+          - npm run cp:hisprod:andr
+

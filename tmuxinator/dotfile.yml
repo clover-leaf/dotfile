@@ -1,0 +1,38 @@
+
+name: dotfile
+root: ~/dotfile/
+
+windows:
+  - tmux:
+      root: ~/dotfile/tmux/
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - conf:
+          - vim .tmux.conf
+        - terminal:
+          - ll
+  - vim:
+      root: ~/dotfile/nvim/
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - conf:
+          - vim init.lua
+        - terminal:
+          - ll
+  - zsh:
+      root: ~/dotfile/zsh/
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - conf:
+          - vim .zshrc
+        - terminal:
+          - ll
+  - git:
+      root: ~/dotfile/git/
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - conf:
+          - vim .gitconfig
+        - terminal:
+          - ll
+
