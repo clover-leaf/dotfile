@@ -1,0 +1,26 @@
+# /Users/thangnguyen/.config/tmuxinator/redis.yml
+
+name: redis
+root: ~/Documents/devop_stack/
+
+windows:
+  - cluster:
+      layout: main-vertical
+      panes:
+        - |
+          ./redis/util.sh start
+          ./redis/util.sh cluster
+          redis-cli -p 8011 cluster nodes
+  - exporter:
+      layout: main-vertical
+      panes: 
+        - ./redis_exporter/redis_exporter -redis.addr=
+  - prometheus:
+      layout: main-vertical
+      panes:
+        - ./prometheus/prometheus --config.file=prometheus/prometheus.yml
+  - grafana:
+      layount: main-vertical
+      panes:
+        - ./grafana/bin/grafana server --config=./grafana/conf/custom.ini --homepath=./grafana
+
