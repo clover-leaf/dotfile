@@ -128,6 +128,15 @@ require("lazy").setup({
             vim.g.mkdp_browser = "safari"
             vim.g.mkdp_debug = 1
         end
-    }
+    },
+    {
+      "akinsho/toggleterm.nvim",
+      version = "*",
+      opts = {
+        -- Your toggleterm config (optional)
+        direction = "float",  -- or "horizontal"/"vertical"
+        shell = "zsh",        -- Default shell
+      },
+    },
 })
 
