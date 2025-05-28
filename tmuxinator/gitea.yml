@@ -1,0 +1,22 @@
+
+name: gitea 
+root: ~/
+
+windows:
+  - gitea:
+      root: ~
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - startup:
+          - gitea
+        - terminal:
+          - ll
+  - mariadb:
+      root: ~
+      layout: f0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      panes:
+        - startup:
+          - brew services start mariadb
+        - terminal:
+          - ll
+

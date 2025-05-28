@@ -2,6 +2,8 @@
 name: emola
 root: ~/Documents/Doing/sources/
 
+pre_window: export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
+
 windows:
   - editor:
       root: ~/Documents/Doing/sources/
