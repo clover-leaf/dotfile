@@ -16,7 +16,7 @@ local lazygit = Terminal:new({
 })
 
 -- Toggle LazyGit with <leader>gg
-vim.keymap.set("n", "<leader>gg", function()
+vim.keymap.set("n", "<leader>g", function()
   lazygit:toggle()
 end, { desc = "Toggle lazygit" })
 
