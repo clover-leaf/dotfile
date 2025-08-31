@@ -5,7 +5,7 @@ local servers = {
     -- "ts_ls", -- Replaced with typescript-tools.nvim (configured in lsp/typescript-tools.lua)
     "clangd",
     "gopls",
-    "elixirls",
+    -- "elixirls", -- Replaced with Expert LSP
     "biome",
     "kotlin_language_server"
 }
