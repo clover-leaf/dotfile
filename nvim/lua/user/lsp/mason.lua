@@ -73,8 +73,9 @@ for _, server in pairs(servers) do
 end
 
 -- Define custom LSP configurations
-if not lspconfig.configs.expert then
-    lspconfig.configs.expert = {
+local configs = require('lspconfig.configs')
+if not configs.expert then
+    configs.expert = {
         default_config = {
             cmd = { vim.fn.expand("~/.local/bin/expert") },
             filetypes = { "elixir", "eelixir", "heex" },
