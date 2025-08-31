@@ -1,12 +1,17 @@
-
 local servers = {
     "lua_ls",
     "pyright",
     "jsonls",
-    "ts_ls",
+    -- "ts_ls", -- Replaced with typescript-tools.nvim (configured in lsp/typescript-tools.lua)
     "clangd",
     "gopls",
-    "elixirls"
+    "elixirls",
+    "biome",
+    "kotlin_language_server"
+}
+
+local manual_servers = {
+    "sourcekit", -- Swift (installed via Swift toolchain)
 }
 
 local settings = {
@@ -25,7 +30,7 @@ local settings = {
 require("mason").setup(settings)
 require("mason-lspconfig").setup({
 	ensure_installed = servers,
-	automatic_installation = true,
+	automatic_installation = false, -- Disable to prevent ts_ls auto-installation
 })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
@@ -35,13 +40,27 @@ end
 
 local opts = {}
 
+-- Track which servers we've already configured
+local configured_servers = {}
+
 for _, server in pairs(servers) do
+	-- Skip TypeScript servers - handled by typescript-tools.nvim
+	if server == "ts_ls" or server == "tsserver" then
+		goto continue
+	end
+	
 	opts = {
 		on_attach = require("user.lsp.handlers").on_attach,
 		capabilities = require("user.lsp.handlers").capabilities,
 	}
 
 	server = vim.split(server, "@")[1]
+	
+	-- Skip if already configured
+	if configured_servers[server] then
+		goto continue
+	end
+	configured_servers[server] = true
 
 	local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
 	if require_ok then
@@ -49,5 +68,43 @@ for _, server in pairs(servers) do
 	end
 
 	lspconfig[server].setup(opts)
+	::continue::
 end
+
+-- Configure manually installed servers (e.g., sourcekit)
+for _, server in pairs(manual_servers) do
+    -- Skip TypeScript servers - handled by typescript-tools.nvim
+    if server == "ts_ls" or server == "tsserver" or server == "typescript-go" then
+        goto continue
+    end
+    
+    opts = {
+        on_attach = require("user.lsp.handlers").on_attach,
+        capabilities = require("user.lsp.handlers").capabilities,
+    }
+    -- Load server-specific settings if they exist
+    local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
+    if require_ok then
+        opts = vim.tbl_deep_extend("force", conf_opts, opts)
+    end
+    lspconfig[server].setup(opts)
+    ::continue::
+end
+
+-- Custom configuration for JetBrains Kotlin LSP
+--require('lspconfig.configs').kotlinlsp = {
+--    default_config = {
+--        cmd = { vim.fn.expand("~/.local/share/kotlin-lsp/kotlin-0/kotlin-lsp.sh") },
+--        filetypes = { "kotlin" },
+--        root_dir = function(fname)
+--                local util = require("lspconfig.util")
+--                return util.root_pattern("settings.gradle", "build.gradle", ".git")(fname)
+--                    or util.path.dirname(fname)  -- Fallback to the file's directory
+--            end,
+--    },
+--}
+--lspconfig.kotlinlsp.setup({
+--    on_attach = require("user.lsp.handlers").on_attach,
+--    capabilities = require("user.lsp.handlers").capabilities,
+--})
 

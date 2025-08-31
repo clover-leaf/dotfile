@@ -1,12 +1,15 @@
 # ~/.tmuxinator/astro.yml
 
 name: astro
-root: ~/astro
+root: ~/devlog/myhome/
 pre_window: nvm use 20.14.0
 windows:
   - editor:
       layout: main-vertical
       panes:
-        - editor:
-          - vim
+        - vim
+  - server:
+      layout: main-vertical
+      panes:
+        - npm run dev
 

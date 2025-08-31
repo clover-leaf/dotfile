@@ -7,7 +7,15 @@ export PATH=$ANDROID_HOME/tools/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$PATH:Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/.jenv/bin"
+export PATH="$PATH:$HOME/.local/bin"
 export EDITOR=nvim
+export ANTHROPIC_API_KEY=REDACTED_API_KEY
+
+export GITEA_SERVER_URL="http://localhost:3000"
+export GITEA_API_TOKEN="REDACTED_TOKEN"
+export GITEA_USERNAME="thitthan"
 
 ZSH_THEME="geoffgarside"
 
@@ -30,7 +38,14 @@ alias gdf='git diff'
 alias gco='git checkout'
 alias gad='git add'
 
+# java
+alias java-11='jenv local 11.0.26;java -version'
+alias java-17='jenv local 17.0.14;java -version'
+alias java-21='jenv local 21.0.6n;java -version'
+
+# aider
+alias aider-deep-seek='aider --model deepseek --api-key deepseek=sk-f605716aa2f1411aab7c1486d68977f9'
+
 # tmuxinator
 alias mux=tmuxinator
 
-[[ "$TERM_PROGRAM" == "CodeEditApp_Terminal" ]] && . "/Volumes/CodeEdit/CodeEdit.app/Contents/Resources/codeedit_shell_integration.zsh"

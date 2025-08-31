@@ -11,6 +11,7 @@ local options = {
     "lua",
     "javascript",
     "typescript",
+    "java",
     "python",
     "bash",
     "cmake",
@@ -26,6 +27,11 @@ local options = {
     "yaml",
     "markdown",
     "sql",
+    "go",
+    "elixir",
+    "eex",
+    "heex",
+    "swift"
   },
 
   context_commentstring = {

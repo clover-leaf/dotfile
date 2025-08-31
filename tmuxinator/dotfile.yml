@@ -7,36 +7,30 @@ windows:
       root: ~/dotfile/tmux/
       layout: main-vertical
       panes:
-        - conf:
-          - vim .tmux.conf
+        - vim .tmux.conf
   - vim:
       root: ~/dotfile/nvim/
-      layout: main-verticalf0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      layout: main-vertical
       panes:
-        - conf:
-          - vim init.lua
+        - vim init.lua
   - zsh:
       root: ~/dotfile/zsh/
-      layout: main-verticalf0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      layout: main-vertical
       panes:
-        - conf:
-          - vim .zshrc
+        - vim .zshrc
   - git:
       root: ~/dotfile/git/
-      layout: main-verticalf0a5,190x58,0,0[190x44,0,0,0,190x13,0,45,4]
+      layout: main-vertical
       panes:
-        - conf:
-          - vim .gitconfig
+        - vim .gitconfig
   - aerospace:
       root: ~/dotfile/aerospace/
       layout: main-vertical
       panes:
-        - conf:
-          - vim aerospace.toml
+        - vim aerospace.toml
   - mux:
       root: ~/dotfile/tmuxinator/
       layout: main-vertical
       panes:
-        -conf:
-          - vim dotfile.yml
+        - vim dotfile.yml
 

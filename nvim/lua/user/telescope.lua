@@ -4,6 +4,7 @@ if not status_ok then
 end
 
 telescope.load_extension('media_files')
+telescope.load_extension('file_browser')
 
 local actions = require "telescope.actions"
 
@@ -94,11 +95,43 @@ telescope.setup {
         -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
         filetypes = {"png", "webp", "jpg", "jpeg"},
         find_cmd = "rg" -- find command (defaults to `fd`)
-      }
-    -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
+      },
+    file_browser = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          ["<A-c>"] = "create",
+          ["<A-r>"] = "rename",
+          ["<A-m>"] = "move",
+          ["<A-y>"] = "copy",
+          ["<A-d>"] = "remove",
+          ["<C-o>"] = "open",
+          ["<C-g>"] = "goto_parent_dir",
+          ["<C-e>"] = "goto_home_dir",
+          ["<C-w>"] = "goto_cwd",
+          ["<C-t>"] = "change_cwd",
+          ["<C-f>"] = "toggle_browser",
+          ["<C-h>"] = "toggle_hidden",
+          ["<C-s>"] = "toggle_all",
+        },
+        ["n"] = {
+          ["c"] = "create",
+          ["r"] = "rename", 
+          ["m"] = "move",
+          ["y"] = "copy",
+          ["d"] = "remove",
+          ["o"] = "open",
+          ["g"] = "goto_parent_dir",
+          ["e"] = "goto_home_dir",
+          ["w"] = "goto_cwd",
+          ["t"] = "change_cwd",
+          ["f"] = "toggle_browser",
+          ["h"] = "toggle_hidden",
+          ["s"] = "toggle_all",
+        },
+      },
+    }
   },
 }

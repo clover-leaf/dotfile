@@ -1,0 +1,142 @@
+return {
+    cmd = { "typescript-language-server", "--stdio" },
+    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+    root_dir = function(fname)
+        return require("lspconfig").util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git", "metro.config.js", "babel.config.js")(fname)
+    end,
+    settings = {
+        typescript = {
+            inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+            },
+            suggest = {
+                includeCompletionsForModuleExports = true,
+                autoImports = true,
+            },
+            preferences = {
+                importModuleSpecifier = "relative",
+                includePackageJsonAutoImports = "auto",
+                excludeLibrarySymbolsInNavigation = true,
+                includeAutomaticOptionalChainCompletions = true,
+            },
+            workspaceSymbols = {
+                search = {
+                    kind = "workspace",
+                },
+            },
+            format = {
+                enable = true,
+            },
+        },
+        javascript = {
+            inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+            },
+            suggest = {
+                includeCompletionsForModuleExports = true,
+                autoImports = true,
+            },
+            preferences = {
+                importModuleSpecifier = "relative",
+                includePackageJsonAutoImports = "auto",
+                excludeLibrarySymbolsInNavigation = true,
+            },
+            format = {
+                enable = true,
+            },
+        },
+    },
+    init_options = {
+        preferences = {
+            disableSuggestions = false,
+        },
+    },
+    handlers = {
+        ["textDocument/definition"] = function(err, result, method, ...)
+            -- Debug: print the result to see what we're getting
+            if err then
+                print("Definition error:", vim.inspect(err))
+                return
+            end
+            
+            if not result or (vim.tbl_islist(result) and #result == 0) then
+                print("No definition found for cursor position")
+                return
+            end
+            
+            print("Definition result:", vim.inspect(result))
+            
+            if result and vim.tbl_islist(result) and #result > 1 then
+                local filtered_result = {}
+                local seen = {}
+                for _, res in ipairs(result) do
+                    local key = res.uri .. ":" .. res.range.start.line .. ":" .. res.range.start.character
+                    if not seen[key] then
+                        seen[key] = true
+                        table.insert(filtered_result, res)
+                    end
+                end
+                if #filtered_result == 1 then
+                    print("Jumping to single filtered result")
+                    vim.lsp.util.jump_to_location(filtered_result[1], "utf-8")
+                    return
+                end
+                result = filtered_result
+            end
+            vim.lsp.handlers["textDocument/definition"](err, result, method, ...)
+        end,
+        ["textDocument/references"] = function(err, result, method, ...)
+            if result and vim.tbl_islist(result) and #result > 1 then
+                local filtered_result = {}
+                local seen = {}
+                for _, res in ipairs(result) do
+                    local key = res.uri .. ":" .. res.range.start.line .. ":" .. res.range.start.character
+                    if not seen[key] then
+                        seen[key] = true
+                        table.insert(filtered_result, res)
+                    end
+                end
+                result = filtered_result
+            end
+            vim.lsp.handlers["textDocument/references"](err, result, method, ...)
+        end,
+        ["textDocument/declaration"] = function(err, result, method, ...)
+            -- If no declaration result, fallback to definition
+            if not result or (vim.tbl_islist(result) and #result == 0) then
+                vim.lsp.buf.definition()
+                return
+            end
+            
+            if result and vim.tbl_islist(result) and #result > 1 then
+                local filtered_result = {}
+                local seen = {}
+                for _, res in ipairs(result) do
+                    local key = res.uri .. ":" .. res.range.start.line .. ":" .. res.range.start.character
+                    if not seen[key] then
+                        seen[key] = true
+                        table.insert(filtered_result, res)
+                    end
+                end
+                if #filtered_result == 1 then
+                    vim.lsp.util.jump_to_location(filtered_result[1], "utf-8")
+                    return
+                end
+                result = filtered_result
+            end
+            vim.lsp.handlers["textDocument/declaration"](err, result, method, ...)
+        end,
+    },
+    single_file_support = false,
+}

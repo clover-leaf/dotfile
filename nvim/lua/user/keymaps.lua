@@ -31,7 +31,7 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
-keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+-- keymap("n", "<leader>e", ":Lex 30<cr>", opts) -- Disabled for telescope file browser
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<CR>", opts)
@@ -46,7 +46,7 @@ keymap("n", "<leader><leader>", "<C-^>", opts)
 
 -- Insert --
 -- Press jk fast to enter
-keymap("i", "th", "<ESC>", opts)
+keymap("i", "tn", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -71,9 +71,42 @@ keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- Telescope
-keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
+keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)
 keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
 
--- Reload config
-keymap("n", "<leader>rr", "<cmd>lua dofile(vim.env.MYVIMRC); require('lazy').reload()<CR>", opts)
+-- Telescope File Browser
+keymap("n", "<leader>e", "<cmd>Telescope file_browser<cr>", opts)
+keymap("n", "<leader>u", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", opts)
 
+-- Reload config
+keymap("n", "<leader>rr", "<cmd>source $MYVIMRC | lua require('lazy.core.loader').reload()<CR>", opts)
+
+-- Toggle line wrap
+keymap("n", "<leader>w", ":set wrap!<CR>", opts)
+
+-- movement
+keymap("n", "<leader>j", "<C-d>", opts)
+keymap("n", "<leader>k", "<C-u>", opts)
+
+-- Quickfix navigation
+keymap("n", "<leader>cc", ":cclose<CR>", opts)
+keymap("n", "<leader>co", ":copen<CR>", opts)
+keymap("n", "<leader>cw", "<C-w>w", opts)
+keymap("n", "]q", ":cnext<CR>", opts)
+keymap("n", "[q", ":cprev<CR>", opts)
+
+-- LSP status check
+keymap("n", "<leader>li", ":LspInfo<CR>", opts)
+keymap("n", "<leader>ls", ":lua print('LSP Status: ' .. vim.inspect(vim.lsp.get_active_clients()))<CR>", opts)
+
+-- LSP debug keymap
+keymap("n", "<leader>ld", ":lua vim.lsp.buf.definition()<CR>", opts)
+keymap("n", "<leader>lc", ":lua for _, client in ipairs(vim.lsp.get_active_clients()) do print('LSP Client:', client.name) end<CR>", opts)
+
+-- Markview (Markdown rendering)
+keymap("n", "<leader>mv", ":Markview<CR>", opts)
+keymap("n", "<leader>mt", ":Markview toggle<CR>", opts)
+
+-- Markdown Preview (for mermaid charts)
+keymap("n", "<leader>mp", ":MarkdownPreview<CR>", opts)
+keymap("n", "<leader>ms", ":MarkdownPreviewStop<CR>", opts)
