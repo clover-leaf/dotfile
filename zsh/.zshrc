@@ -49,3 +49,4 @@ alias aider-deep-seek='aider --model deepseek --api-key deepseek=sk-f605716aa2f1
 # tmuxinator
 alias mux=tmuxinator
 
+export PATH="$HOME/.local/bin:$PATH"
