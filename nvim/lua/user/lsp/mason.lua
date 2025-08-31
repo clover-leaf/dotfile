@@ -12,6 +12,7 @@ local servers = {
 
 local manual_servers = {
     "sourcekit", -- Swift (installed via Swift toolchain)
+    "expert", -- Elixir Expert LSP
 }
 
 local settings = {
