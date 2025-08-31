@@ -75,15 +75,9 @@ end
 -- Define custom LSP configurations
 local configs = require('lspconfig.configs')
 if not configs.expert then
+    local expert_config = require("user.lsp.settings.expert")
     configs.expert = {
-        default_config = {
-            cmd = { vim.fn.expand("~/.local/bin/expert") },
-            filetypes = { "elixir", "eelixir", "heex" },
-            root_dir = function(fname)
-                return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
-            end,
-            settings = {}
-        }
+        default_config = expert_config
     }
 end
 
