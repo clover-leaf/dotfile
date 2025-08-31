@@ -72,6 +72,20 @@ for _, server in pairs(servers) do
 	::continue::
 end
 
+-- Define custom LSP configurations
+if not lspconfig.configs.expert then
+    lspconfig.configs.expert = {
+        default_config = {
+            cmd = { vim.fn.expand("~/.local/bin/expert") },
+            filetypes = { "elixir", "eelixir", "heex" },
+            root_dir = function(fname)
+                return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+            end,
+            settings = {}
+        }
+    }
+end
+
 -- Configure manually installed servers (e.g., sourcekit)
 for _, server in pairs(manual_servers) do
     -- Skip TypeScript servers - handled by typescript-tools.nvim
