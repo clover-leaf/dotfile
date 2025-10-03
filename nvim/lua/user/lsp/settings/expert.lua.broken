@@ -1,0 +1,111 @@
+return {
+    cmd = { vim.fn.expand("~/.local/bin/expert") },
+    filetypes = { "elixir", "eelixir", "heex" },
+    root_dir = function(fname)
+        return require("lspconfig").util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+    end,
+    -- Disable distributed Erlang to prevent ERPC errors
+    cmd_env = {
+        ERL_AFLAGS = "-sname expert_lsp -setcookie nocookie"
+    },
+    on_attach = function(client, bufnr)
+        -- Call common handler first to set up keymaps  
+        require("user.lsp.handlers").on_attach(client, bufnr)
+        
+        -- Compile the project to help with symbol resolution
+        local root = vim.fn.getcwd()
+        vim.fn.system("cd " .. root .. " && mix compile 2>/dev/null &")
+        
+        -- Enable LSP capabilities
+        client.server_capabilities.definitionProvider = true
+        client.server_capabilities.referencesProvider = true
+        client.server_capabilities.hoverProvider = true
+        client.server_capabilities.documentSymbolProvider = true
+        
+        print("Expert LSP attached - definition provider: " .. tostring(client.server_capabilities.definitionProvider))
+        
+        -- Add fallback manual search for intra-module functions
+        local original_definition_handler = vim.lsp.handlers["textDocument/definition"]
+        vim.lsp.handlers["textDocument/definition"] = function(err, result, ctx, config)
+            print("LSP definition request - err:", err and vim.inspect(err) or "nil")
+            print("LSP definition result:", result and vim.inspect(result) or "nil")
+            
+            -- If LSP found results, filter and use them
+            if result and type(result) == "table" and #result > 0 then
+                local filtered_result = {}
+                for _, location in ipairs(result) do
+                    if location.targetUri or location.uri then
+                        local uri = location.targetUri or location.uri
+                        local range = location.targetRange or location.range
+                        local file_path = vim.uri_to_fname(uri)
+                        
+                        local line_num = range.start.line + 1
+                        local ok, lines = pcall(vim.fn.readfile, file_path, "", line_num + 2)
+                        if ok and lines and lines[line_num] then
+                            local line_content = lines[line_num]
+                            if line_content:match("^%s*defp?%s+") then
+                                table.insert(filtered_result, location)
+                            end
+                        end
+                    end
+                end
+                result = #filtered_result > 0 and filtered_result or result
+                print("Using LSP result:", vim.inspect(result))
+                return original_definition_handler(err, result, ctx, config)
+            end
+            
+            -- Fallback: Manual search within current file for intra-module functions
+            print("No LSP result, trying manual search...")
+            local current_word = vim.fn.expand("<cword>")
+            local current_file = vim.api.nvim_buf_get_name(bufnr)
+            
+            if current_word and current_file then
+                print("Searching for:", current_word, "in", current_file)
+                local lines = vim.fn.readfile(current_file)
+                for i, line in ipairs(lines) do
+                    if line:match("^%s*defp?%s+" .. current_word .. "%s*%(") then
+                        print("Found function at line", i)
+                        local manual_result = {{
+                            uri = vim.uri_from_fname(current_file),
+                            range = {
+                                start = { line = i - 1, character = 0 },
+                                ["end"] = { line = i - 1, character = #line }
+                            }
+                        }}
+                        return original_definition_handler(nil, manual_result, ctx, config)
+                    end
+                end
+                print("Function not found in current file")
+            end
+            
+            return original_definition_handler(err, result, ctx, config)
+        end
+    end,
+    capabilities = require("user.lsp.handlers").capabilities,
+    settings = {
+        expert = {
+            -- Enable full project analysis for better intra-module navigation
+            projectAnalysis = true,
+            -- Enable local symbol resolution within modules
+            localSymbolResolution = true,
+            -- Enable private function analysis
+            analyzePrivateFunctions = true,
+            -- Enable intra-module navigation
+            intraModuleNavigation = true,
+            -- Enable full AST analysis
+            astAnalysis = true,
+            -- Enable symbol indexing
+            symbolIndexing = true
+        }
+    },
+    init_options = {
+        -- Enable comprehensive analysis
+        enableProjectAnalysis = true,
+        enableLocalSymbolResolution = true,
+        enablePrivateFunctionAnalysis = true,
+        enableIntraModuleNavigation = true,
+        enableAstAnalysis = true,
+        enableSymbolIndexing = true,
+        mixEnv = "dev"
+    }
+}

@@ -5,14 +5,13 @@ local servers = {
     -- "ts_ls", -- Replaced with typescript-tools.nvim (configured in lsp/typescript-tools.lua)
     "clangd",
     "gopls",
-    -- "elixirls", -- Replaced with Expert LSP
+    "elixirls", -- Back to ElixirLS
     "biome",
     "kotlin_language_server"
 }
 
 local manual_servers = {
     "sourcekit", -- Swift (installed via Swift toolchain)
-    "expert", -- Elixir Expert LSP
 }
 
 local settings = {
@@ -70,15 +69,6 @@ for _, server in pairs(servers) do
 
 	lspconfig[server].setup(opts)
 	::continue::
-end
-
--- Define custom LSP configurations
-local configs = require('lspconfig.configs')
-if not configs.expert then
-    local expert_config = require("user.lsp.settings.expert")
-    configs.expert = {
-        default_config = expert_config
-    }
 end
 
 -- Configure manually installed servers (e.g., sourcekit)
