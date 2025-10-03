@@ -50,3 +50,12 @@ alias aider-deep-seek='aider --model deepseek --api-key deepseek=sk-f605716aa2f1
 alias mux=tmuxinator
 
 export PATH="$HOME/.local/bin:$PATH"
+eval "$(jenv init -)"
+
+# pnpm
+export PNPM_HOME="/Users/thangnguyen/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
