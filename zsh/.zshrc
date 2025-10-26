@@ -11,7 +11,6 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.jenv/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export EDITOR=nvim
-export ANTHROPIC_API_KEY=REDACTED_API_KEY
 
 export GITEA_SERVER_URL="http://localhost:3000"
 export GITEA_API_TOKEN="REDACTED_TOKEN"
@@ -44,7 +43,7 @@ alias java-17='jenv local 17.0.14;java -version'
 alias java-21='jenv local 21.0.6n;java -version'
 
 # aider
-alias aider-deep-seek='aider --model deepseek --api-key deepseek=sk-f605716aa2f1411aab7c1486d68977f9'
+alias aider-deep-seek='aider --model deepseek --api-key deepseek='
 
 # tmuxinator
 alias mux=tmuxinator
