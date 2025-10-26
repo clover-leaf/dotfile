@@ -8,9 +8,9 @@ typescript_tools.setup({
     capabilities = require("user.lsp.handlers").capabilities,
     settings = {
         -- spawn additional tsserver instance to calculate diagnostics on it
-        separate_diagnostic_server = false, -- Changed to false to prevent duplicate servers
-        -- "change"|"insert_leave" determine when the client asks the server about diagnostic  
-        publish_diagnostic_on = "insert_leave",
+        separate_diagnostic_server = true, -- Enable for better performance with diagnostics
+        -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+        publish_diagnostic_on = "change", -- Show diagnostics immediately on any change
         -- specify a list of plugins to load by tsserver, e.g., for support of styled-components
         tsserver_plugins = {},
         -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes

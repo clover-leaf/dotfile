@@ -31,6 +31,10 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- Close current pane
+keymap("n", "<C-w>q", "<C-w>q", opts)
+keymap("n", "<leader>q", "<C-w>q", opts)
+
 -- keymap("n", "<leader>e", ":Lex 30<cr>", opts) -- Disabled for telescope file browser
 
 -- Resize with arrows
@@ -102,6 +106,12 @@ keymap("n", "<leader>ls", ":lua print('LSP Status: ' .. vim.inspect(vim.lsp.get_
 -- LSP debug keymap
 keymap("n", "<leader>ld", ":lua vim.lsp.buf.definition()<CR>", opts)
 keymap("n", "<leader>lc", ":lua for _, client in ipairs(vim.lsp.get_active_clients()) do print('LSP Client:', client.name) end<CR>", opts)
+
+-- Diagnostics (workspace-wide)
+keymap("n", "<leader>dw", "<cmd>Telescope diagnostics<cr>", opts)  -- Workspace diagnostics (searchable)
+keymap("n", "<leader>dd", "<cmd>Telescope diagnostics bufnr=0<cr>", opts)  -- Current buffer diagnostics
+keymap("n", "<leader>dq", "<cmd>lua vim.diagnostic.setqflist()<cr>", opts)  -- All diagnostics to quickfix
+keymap("n", "<leader>dp", "<cmd>lua require('user.lsp.handlers').check_project_diagnostics()<cr>", opts)  -- Check entire project
 
 -- Markview (Markdown rendering)
 keymap("n", "<leader>mv", ":Markview<CR>", opts)
