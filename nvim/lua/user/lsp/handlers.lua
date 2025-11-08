@@ -1,4 +1,5 @@
 local M = {}
+local navic = require("nvim-navic")
 
 -- Check all TypeScript files in project and show diagnostics
 M.check_project_diagnostics = function()
@@ -153,6 +154,14 @@ end
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
+  local navic_ok, navic = pcall(require, "nvim-navic")
+  if
+    navic_ok
+    and client.server_capabilities
+    and client.server_capabilities.documentSymbolProvider
+  then
+    navic.attach(client, bufnr)
+  end
 end
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
