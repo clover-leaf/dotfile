@@ -219,6 +219,57 @@ require("lazy").setup({
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",   -- icons on the filename/branch segments
+      "SmiteshP/nvim-navic",           -- exposes the current LSP scope/function
+    },
+    config = function()
+      local navic = require("nvim-navic")
+
+      require("lualine").setup({
+        options = {
+          theme = "gruvbox",           -- matches your colorscheme
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          globalstatus = true,
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = {
+            {
+              "filename",
+              path = 1,                -- show relative path; use 2 for absolute
+              symbols = { modified = " ", readonly = "" },
+            },
+            { "branch", icon = "" },
+          },
+          lualine_c = {
+            {
+              function()
+                return navic.is_available() and navic.get_location() or ""
+              end,
+              cond = function() return navic.is_available() end,
+              color = { gui = "bold" },
+            },
+          },
+          lualine_x = { "diff", "diagnostics" },
+          lualine_y = {
+            {
+              function()
+                local current = vim.fn.line(".")
+                local total = vim.fn.line("$")
+                return string.format("%d/%d", current, total)
+              end,
+              icon = "☰",
+            },
+          },
+          lualine_z = { "location" },
+        },
+      })
+    end,
+  },
   --  {
   --    "yetone/avante.nvim",
   --    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`

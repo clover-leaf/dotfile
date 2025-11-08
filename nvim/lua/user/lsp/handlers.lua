@@ -153,11 +153,6 @@ end
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  
-  -- Show LSP indexing progress
-  if client.server_capabilities.workspaceSymbolProvider then
-    print("LSP " .. client.name .. " is indexing workspace...")
-  end
 end
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
