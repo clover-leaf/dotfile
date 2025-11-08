@@ -1,0 +1,2 @@
+WRN 2025-11-09T00:55:13.447 ?.8272     server_start:193: Failed to start server: operation not permitted: /var/folders/6w/z83slj9s2g3803mtjjh9bt3w0000gn/T/nvim.thangnguyen/xsrOlc/nvim.8272.0
+WRN 2025-11-09T00:57:17.796 ?.8347     server_start:193: Failed to start server: operation not permitted: /var/folders/6w/z83slj9s2g3803mtjjh9bt3w0000gn/T/nvim.thangnguyen/PPaUkE/dotfile.8347.0
