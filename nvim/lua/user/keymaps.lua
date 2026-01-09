@@ -88,6 +88,9 @@ keymap("n", "<leader>rr", "<cmd>source $MYVIMRC | lua require('lazy.core.loader'
 -- Toggle line wrap
 keymap("n", "<leader>w", ":set wrap!<CR>", opts)
 
+-- NoNeckPain (centering/focus mode)
+keymap("n", "<leader>n", ":NoNeckPain<CR>", opts)
+
 -- movement
 keymap("n", "<leader>j", "<C-d>", opts)
 keymap("n", "<leader>k", "<C-u>", opts)

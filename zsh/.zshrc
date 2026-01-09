@@ -10,6 +10,8 @@ export PATH="$PATH:Applications/Visual\ Studio\ Code.app/Contents/Resources/app/
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.jenv/bin"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
 export EDITOR=nvim
 
 export GITEA_SERVER_URL="http://localhost:3000"
@@ -42,6 +44,13 @@ alias java-11='jenv local 11.0.26;java -version'
 alias java-17='jenv local 17.0.14;java -version'
 alias java-21='jenv local 21.0.6n;java -version'
 
+# beans
+alias beans-progress='beans query "{ beans(filter: { excludeStatus: [\"completed\", \"scrapped\"] }) { id title status type priority } }"'
+
+# node
+nvm alias default 20.19.5
+nvm use default
+
 # aider
 alias aider-deep-seek='aider --model deepseek --api-key deepseek='
 
@@ -58,3 +67,5 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+clear

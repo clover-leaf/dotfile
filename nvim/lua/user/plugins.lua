@@ -261,4 +261,8 @@ require("lazy").setup({
       })
     end,
   },
+  {
+    "shortcuts/no-neck-pain.nvim",
+    version = "*"
+  }
 })
