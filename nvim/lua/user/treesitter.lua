@@ -4,6 +4,15 @@ if not present then
   return
 end
 
+local ts_install = require("nvim-treesitter.install")
+local ts_abi = vim.treesitter.language_version
+-- tree-sitter 0.26+ removed --no-bindings; pass only supported args.
+if ts_abi then
+  ts_install.ts_generate_args = { "generate", "--abi", ts_abi }
+else
+  ts_install.ts_generate_args = { "generate" }
+end
+
 local options = {
   ensure_installed = {
     "c",
@@ -61,4 +70,3 @@ local options = {
 }
 
 treesitter.setup(options)
-
