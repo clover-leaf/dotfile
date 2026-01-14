@@ -14,10 +14,6 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
 export EDITOR=nvim
 
-export GITEA_SERVER_URL="http://localhost:3000"
-export GITEA_API_TOKEN="REDACTED_TOKEN"
-export GITEA_USERNAME="thitthan"
-
 ZSH_THEME="geoffgarside"
 
 plugins=(git)
