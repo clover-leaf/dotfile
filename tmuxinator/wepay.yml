@@ -1,0 +1,23 @@
+name: wepay
+root: ~/devlog/wepay
+
+windows:
+  - dev:
+      layout: main-vertical
+      panes:
+        - claude:
+          - claude
+        - mobile:
+          - cd ~/devlog/wepay/mobile
+          - pnpm start
+        - backend:
+          - cd ~/devlog/wepay/backend
+          - mix phx.server
+  - skill:
+      root: ~/devlog/claude-skill
+      layout: even-horizontal
+      panes:
+        - editor:
+          - vim
+        - claude:
+          - claude

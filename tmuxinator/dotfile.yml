@@ -3,6 +3,11 @@ name: dotfile
 root: ~/dotfile/
 
 windows:
+  - claude:
+      root: ~/dotfile/
+      layout: main-vertical
+      panes:
+        - claude
   - tmux:
       root: ~/dotfile/tmux/
       layout: main-vertical
