@@ -1,0 +1,17 @@
+name: revenge
+root: ~/devlop/revenge
+
+windows:
+  - dev:
+      layout: main-vertical
+      panes:
+        - editor:
+          - cd ~/devlog/revenge
+  - skill:
+      root: ~/devlog/claude-skill
+      layout: even-horizontal
+      panes:
+        - editor:
+          - vim
+        - claude:
+          - claude
