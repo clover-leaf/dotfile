@@ -1,0 +1,25 @@
+name: rust
+root: ~/devlog/rust
+
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - nvim
+  - claude:
+      layout: main-vertical
+      panes:
+        - claude
+  - cargo:
+      layout: main-vertical
+      panes:
+        - # cargo build, cargo run, cargo check
+  - rustlings:
+      root: ~/devlog/rust/rustlings
+      layout: main-vertical
+      panes:
+        - # rustlings watch
+  - repl:
+      layout: main-vertical
+      panes:
+        - # evcxr (rust repl) or scratch testing
