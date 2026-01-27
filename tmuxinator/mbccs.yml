@@ -1,0 +1,11 @@
+
+name: mbccs
+root: ~/Documents/mBccs_ver2/mBccs
+
+windows:
+  - vim:
+      panes:
+        - vim
+  - claude:
+      panes:
+        - claude
