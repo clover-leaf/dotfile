@@ -9,8 +9,6 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.jenv/bin"
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
 export EDITOR=nvim
 
 ZSH_THEME="geoffgarside"
@@ -19,7 +17,8 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.nvm/nvm.sh
 
