@@ -17,7 +17,7 @@ telescope.setup {
     file_ignore_patterns = {
       "node_modules/",
       ".pnpm%-store/",
-      ".git/",
+      "%.git/",
       "%.lock",
     },
 
