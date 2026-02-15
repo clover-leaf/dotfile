@@ -1,4 +1,11 @@
 return {
-  filetypes = { "swift" },  -- Ensure it only attaches to Swift files
+  cmd = { "sourcekit-lsp" },
+  filetypes = { "swift" },
+  root_dir = require("lspconfig.util").root_pattern(
+    "buildServer.json", -- xcode-build-server (Xcode projects)
+    "Package.swift",    -- Swift Package Manager
+    ".xcodeproj",
+    ".xcworkspace",
+    ".git"
+  ),
 }
-
