@@ -65,3 +65,6 @@ case ":$PATH:" in
 esac
 
 clear
+
+# Tea CLI (Forgejo)
+export PATH="$HOME/bin:$PATH"
