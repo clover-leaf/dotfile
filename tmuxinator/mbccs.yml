@@ -1,11 +1,6 @@
-
 name: mbccs
-root: ~/Documents/mBccs_ver2/mBccs
+root: ~/jimusho/mbccs/
 
 windows:
-  - vim:
-      panes:
-        - vim
-  - claude:
-      panes:
-        - claude
+  - editor: vim
+  - claude: claude
