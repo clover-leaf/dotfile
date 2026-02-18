@@ -3,6 +3,17 @@ if not cmp_status_ok then
   return
 end
 
+-- Toggle autocomplete on/off (for DSA practice without autocomplete)
+vim.g.cmp_enabled = true
+vim.keymap.set("n", "<leader>tc", function()
+  vim.g.cmp_enabled = not vim.g.cmp_enabled
+  if vim.g.cmp_enabled then
+    print("Autocomplete ON")
+  else
+    print("Autocomplete OFF")
+  end
+end, { noremap = true, silent = false, desc = "Toggle autocomplete" })
+
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
   return
@@ -59,6 +70,9 @@ local kind_icons = {
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
+  enabled = function()
+    return vim.g.cmp_enabled
+  end,
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body) -- For `luasnip` users.

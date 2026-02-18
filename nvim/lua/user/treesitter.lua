@@ -40,7 +40,8 @@ local options = {
     "elixir",
     "eex",
     "heex",
-    "swift"
+    "swift",
+    "kotlin"
   },
 
   context_commentstring = {
