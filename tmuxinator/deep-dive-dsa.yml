@@ -1,0 +1,18 @@
+name: deep-dive-dsa
+root: ~/devlog/deep-dive
+
+windows:
+  - editor:
+      root: ~/devlog/deep-dive/dsa
+      layout: main-vertical
+      panes:
+        - nvim
+  - claude:
+      layout: main-vertical
+      panes:
+        - claude
+  - terminal:
+      root: ~/devlog/deep-dive/dsa
+      layout: main-vertical
+      panes:
+        -
