@@ -1,0 +1,5 @@
+# VIA exports (contain vendorProductId specific to your board)
+*_export.json
+# OS files
+.DS_Store
+Thumbs.db
