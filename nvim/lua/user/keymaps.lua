@@ -116,6 +116,15 @@ keymap("n", "<leader>dd", "<cmd>Telescope diagnostics bufnr=0<cr>", opts)  -- Cu
 keymap("n", "<leader>dq", "<cmd>lua vim.diagnostic.setqflist()<cr>", opts)  -- All diagnostics to quickfix
 keymap("n", "<leader>dp", "<cmd>lua require('user.lsp.handlers').check_project_diagnostics()<cr>", opts)  -- Check entire project
 
+-- Git blame (gitsigns)
+keymap("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)  -- Toggle inline blame
+keymap("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", opts)                -- Blame popup for current line
+keymap("n", "<leader>gB", "<cmd>Gitsigns blame<cr>", opts)                     -- Full file blame
+
+-- Typr (typing practice)
+keymap("n", "<leader>ty", ":Typr<CR>", opts)
+keymap("n", "<leader>ts", ":TyprStats<CR>", opts)
+
 -- Markview (Markdown rendering)
 keymap("n", "<leader>mv", ":Markview<CR>", opts)
 keymap("n", "<leader>mt", ":Markview toggle<CR>", opts)

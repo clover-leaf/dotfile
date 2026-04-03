@@ -128,7 +128,7 @@ require("lazy").setup({
   },
   {
     "nvzone/typr",
-    cmd="TyprStats",
+    cmd={"Typr", "TyprStats"},
     dependencies="nvzone/volt",
     opts={},
   },
